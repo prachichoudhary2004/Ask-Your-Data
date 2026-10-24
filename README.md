@@ -29,10 +29,10 @@ flowchart TD
 
 ### Prerequisites
 
-- Python 3.8+
+- Python 3.13+
 - [uv](https://docs.astral.sh/uv/) package manager
 - SQLite database
-- Google AI API key (for Gemini)
+- [Groq API key](https://console.groq.com/) (free tier available)
 
 ### Installation
 
@@ -51,21 +51,46 @@ flowchart TD
 
 3. **Set up environment variables**
 
-   Create a `.env` file in the root directory:
-
-   ```env
-   LLM_MODEL=gemini-pro
-   LLM_API_KEY=your_google_ai_api_key_here
-   DATABASE_PATH=./data/your_database.db
-   ```
-
-4. **Prepare your database**
-
-   - Place your SQLite database in the `data/` directory
-   - Run the ingestion pipeline to create vector embeddings:
+   Copy the example file and fill in your values:
 
    ```bash
-   uv run ingest_pipeline.py
+   cp .env-example .env
+   ```
+
+   Edit `.env`:
+
+   ```env
+   # Database
+   DATABASE_PATH=data/xpto_empresa.db
+
+   # Vector store
+   VECTOR_COLLECTION=xpto_database_embeddings
+   VECTOR_STORE_DIR=data/vector_store
+   TOP_K=5
+
+   # Embedding & rerank models (downloaded automatically)
+   EMBED_MODEL=sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+   RERANK_MODEL=cross-encoder/ms-marco-MiniLM-L-6-v2
+
+   # LLM — powered by Groq
+   LLM_MODEL=llama-3.3-70b-versatile
+   LLM_API_KEY=your_groq_api_key_here
+   LLM_TEMPERATURE=0
+
+   # Disable ChromaDB telemetry
+   ANONYMIZED_TELEMETRY=False
+   ```
+
+4. **Create the sample database** (optional — skip if you have your own `.db`)
+
+   ```bash
+   uv run python scripts/create_xpto_db.py
+   ```
+
+5. **Ingest the database into the vector store**
+
+   ```bash
+   uv run python ingest_pipeline.py
    ```
 
 ### Running the Application
@@ -104,10 +129,11 @@ Ask-Your-Data/
 ├── ui.py                   # Streamlit web interface
 ├── query_service.py        # Main query processing service
 ├── retriever_node.py       # RAG retrieval component
-├── sql_node.py            # SQL generation with LLM
+├── sql_node.py            # SQL generation with LLM (Groq)
 ├── sql_validator.py       # SQL syntax validation
 ├── sql_executor.py        # Database query execution
 ├── ingest_pipeline.py     # Vector database creation
+├── .env-example           # Environment variable template
 ├── data/
 │   └── vector_store/      # ChromaDB vector storage
 └── scripts/
@@ -120,9 +146,16 @@ Ask-Your-Data/
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `LLM_MODEL` | Google AI model name | `gemini-pro` |
-| `LLM_API_KEY` | Google AI API key | Required |
-| `DATABASE_PATH` | Path to SQLite database | `./data/database.db` |
+| `LLM_MODEL` | Groq model name | `llama-3.3-70b-versatile` |
+| `LLM_API_KEY` | Groq API key | Required |
+| `LLM_TEMPERATURE` | LLM temperature | `0` |
+| `DATABASE_PATH` | Path to SQLite database | `data/xpto_empresa.db` |
+| `EMBED_MODEL` | HuggingFace embedding model | `paraphrase-multilingual-MiniLM-L12-v2` |
+| `RERANK_MODEL` | CrossEncoder rerank model | `ms-marco-MiniLM-L-6-v2` |
+| `VECTOR_COLLECTION` | ChromaDB collection name | `xpto_database_embeddings` |
+| `VECTOR_STORE_DIR` | ChromaDB persist directory | `data/vector_store` |
+| `TOP_K` | Number of docs to retrieve | `5` |
+| `ANONYMIZED_TELEMETRY` | Disable ChromaDB telemetry | `False` |
 
 ### Supported Query Types
 

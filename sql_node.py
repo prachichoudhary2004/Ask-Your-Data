@@ -4,15 +4,16 @@ import re
 import os
 
 from langchain_core.prompts import PromptTemplate
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_groq import ChatGroq
 
 from retriever_node import RAGState
 
 
-LLM = ChatGoogleGenerativeAI(model=os.getenv("LLM_MODEL"),
-                                temperature=0, api_key=os.getenv("LLM_API_KEY"),
-                                    max_output_tokens=1024
-                                        )
+LLM = ChatGroq(model=os.getenv("LLM_MODEL"),
+               temperature=float(os.getenv("LLM_TEMPERATURE", "0")),
+               api_key=os.getenv("LLM_API_KEY"),
+               max_tokens=1024
+               )
 
 
 
