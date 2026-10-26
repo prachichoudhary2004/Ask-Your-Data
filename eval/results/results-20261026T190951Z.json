@@ -1,0 +1,187 @@
+{
+  "timestamp": "20261026T190951Z",
+  "summary": {
+    "total": 40,
+    "correct": 28,
+    "accuracy": 0.7,
+    "average_latency_seconds": 4.7306,
+    "categories": {
+      "count": {
+        "total": 9,
+        "correct": 6,
+        "accuracy": 0.6667,
+        "average_latency_seconds": 4.3638
+      },
+      "date_function": {
+        "total": 1,
+        "correct": 1,
+        "accuracy": 1.0,
+        "average_latency_seconds": 7.0525
+      },
+      "filter": {
+        "total": 18,
+        "correct": 13,
+        "accuracy": 0.7222,
+        "average_latency_seconds": 5.2088
+      },
+      "group_by": {
+        "total": 5,
+        "correct": 3,
+        "accuracy": 0.6,
+        "average_latency_seconds": 3.9957
+      },
+      "join": {
+        "total": 7,
+        "correct": 5,
+        "accuracy": 0.7143,
+        "average_latency_seconds": 4.1659
+      }
+    }
+  },
+  "failures": [
+    {
+      "id": 3,
+      "question": "Show a list of active customers",
+      "category": "filter",
+      "language": "en",
+      "tricky": false,
+      "generated_sql": "SELECT c.id, c.nome FROM clientes c WHERE EXISTS (SELECT 1 FROM vendas v WHERE v.cliente_id = c.id AND v.status = 'Pago')",
+      "gold_sql": "SELECT * FROM clientes WHERE ativo = 1",
+      "generated_row_count": 2,
+      "gold_row_count": 5,
+      "latency_seconds": 2.2496
+    },
+    {
+      "id": 6,
+      "question": "Show total sales per employee in 2023",
+      "category": "join",
+      "language": "en",
+      "tricky": true,
+      "generated_sql": "SELECT funcionario_id, SUM(valor_total) AS total_sales FROM vendas WHERE strftime('%Y', data_venda) = '2023' GROUP BY funcionario_id",
+      "gold_sql": "SELECT f.id, f.nome, COUNT(v.id) AS order_count, SUM(v.valor_total) AS revenue FROM funcionarios f LEFT JOIN vendas v ON v.funcionario_id = f.id AND strftime('%Y', v.data_venda) = '2023' GROUP BY f.id, f.nome ORDER BY order_count DESC",
+      "generated_row_count": 2,
+      "gold_row_count": 10,
+      "latency_seconds": 1.8714
+    },
+    {
+      "id": 8,
+      "question": "Find the top 3 clients with the highest total order value",
+      "category": "join",
+      "language": "en",
+      "tricky": false,
+      "generated_sql": "SELECT cliente_id, SUM(valor_total) AS total_valor FROM vendas GROUP BY cliente_id ORDER BY total_valor DESC LIMIT 3",
+      "gold_sql": "SELECT c.id, c.nome, SUM(v.valor_total) AS revenue FROM clientes c JOIN vendas v ON v.cliente_id = c.id GROUP BY c.id, c.nome ORDER BY revenue DESC LIMIT 3",
+      "generated_row_count": 3,
+      "gold_row_count": 3,
+      "latency_seconds": 1.7603
+    },
+    {
+      "id": 10,
+      "question": "Which product categories had more than one distinct product sold?",
+      "category": "group_by",
+      "language": "en",
+      "tricky": true,
+      "generated_sql": "SELECT p.categoria\nFROM produtos p\nJOIN itens_venda iv ON iv.produto_id = p.id\nGROUP BY p.categoria\nHAVING COUNT(DISTINCT p.id) > 1",
+      "gold_sql": "SELECT p.categoria, COUNT(DISTINCT p.id) AS products_sold FROM itens_venda iv JOIN produtos p ON iv.produto_id = p.id GROUP BY p.categoria HAVING COUNT(DISTINCT p.id) > 1",
+      "generated_row_count": 1,
+      "gold_row_count": 1,
+      "latency_seconds": 1.837
+    },
+    {
+      "id": 20,
+      "question": "Total geral de vendas agrupado por status do pedido",
+      "category": "group_by",
+      "language": "pt",
+      "tricky": false,
+      "generated_sql": "SELECT status, SUM(valor_total) AS total_vendas FROM vendas GROUP BY status",
+      "gold_sql": "SELECT status, COUNT(*) AS count, SUM(valor_total) AS total FROM vendas GROUP BY status ORDER BY status",
+      "generated_row_count": 2,
+      "gold_row_count": 2,
+      "latency_seconds": 5.6655
+    },
+    {
+      "id": 23,
+      "question": "Which employees have a supervisor?",
+      "category": "filter",
+      "language": "en",
+      "tricky": false,
+      "generated_sql": "SELECT id, nome, email, cargo, departamento, salario, data_admissao, telefone, endereco, ativo, supervisor_id FROM funcionarios WHERE supervisor_id IS NOT NULL",
+      "gold_sql": "SELECT id, nome, cargo, departamento FROM funcionarios WHERE supervisor_id IS NOT NULL",
+      "generated_row_count": 4,
+      "gold_row_count": 4,
+      "latency_seconds": 5.7501
+    },
+    {
+      "id": 24,
+      "question": "Departments with budget less than 200000",
+      "category": "filter",
+      "language": "en",
+      "tricky": false,
+      "generated_sql": "SELECT * FROM departamentos WHERE orcamento < 200000",
+      "gold_sql": "SELECT nome, orcamento FROM departamentos WHERE orcamento < 200000",
+      "generated_row_count": 1,
+      "gold_row_count": 1,
+      "latency_seconds": 4.7736
+    },
+    {
+      "id": 30,
+      "question": "What is the most expensive product?",
+      "category": "filter",
+      "language": "en",
+      "tricky": false,
+      "generated_sql": "SELECT id, nome, preco_venda FROM produtos ORDER BY preco_venda DESC LIMIT 1",
+      "gold_sql": "SELECT * FROM produtos ORDER BY preco_venda DESC LIMIT 1",
+      "generated_row_count": 1,
+      "gold_row_count": 1,
+      "latency_seconds": 5.8473
+    },
+    {
+      "id": 34,
+      "question": "What was the total discount given across all sales?",
+      "category": "count",
+      "language": "en",
+      "tricky": false,
+      "generated_sql": "SELECT SUM(valor_bruto * desconto / 100.0) AS total_discount FROM vendas",
+      "gold_sql": "SELECT SUM(valor_bruto - valor_total) AS total_discount FROM vendas",
+      "generated_row_count": 1,
+      "gold_row_count": 1,
+      "latency_seconds": 6.1884
+    },
+    {
+      "id": 36,
+      "question": "How many suppliers does XPTO have?",
+      "category": "count",
+      "language": "en",
+      "tricky": false,
+      "generated_sql": "SELECT COUNT(DISTINCT fornecedor_principal) AS supplier_count FROM produtos",
+      "gold_sql": "SELECT COUNT(*) AS total_suppliers FROM fornecedores",
+      "generated_row_count": 1,
+      "gold_row_count": 1,
+      "latency_seconds": 7.1153
+    },
+    {
+      "id": 38,
+      "question": "Pedidos com valor total acima de 5000 e que já foram pagos",
+      "category": "filter",
+      "language": "pt",
+      "tricky": false,
+      "generated_sql": "SELECT id, numero_pedido, valor_total, status FROM vendas WHERE valor_total > 5000 AND status = 'Pago'",
+      "gold_sql": "SELECT * FROM vendas WHERE valor_total > 5000 AND status = 'Pago'",
+      "generated_row_count": 1,
+      "gold_row_count": 1,
+      "latency_seconds": 6.7738
+    },
+    {
+      "id": 40,
+      "question": "What is the net revenue after discount for each sale?",
+      "category": "count",
+      "language": "en",
+      "tricky": false,
+      "generated_sql": "SELECT v.id, v.numero_pedido, SUM(iv.valor_total_item) AS net_revenue\nFROM vendas v\nJOIN itens_venda iv ON iv.venda_id = v.id\nGROUP BY v.id, v.numero_pedido",
+      "gold_sql": "SELECT id, numero_pedido, valor_bruto, desconto, valor_total, (valor_bruto - valor_total) AS discount_amount FROM vendas",
+      "generated_row_count": 3,
+      "gold_row_count": 3,
+      "latency_seconds": 7.33
+    }
+  ]
+}

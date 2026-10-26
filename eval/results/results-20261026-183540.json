@@ -1,0 +1,945 @@
+{
+  "summary": {
+    "total": 41,
+    "accuracy": 0.4146,
+    "average_latency_seconds": 5.0608,
+    "categories": {
+      "aggregation": {
+        "total": 5,
+        "correct": 2
+      },
+      "join": {
+        "total": 5,
+        "correct": 0
+      },
+      "filter": {
+        "total": 15,
+        "correct": 8
+      },
+      "group_by": {
+        "total": 5,
+        "correct": 1
+      },
+      "aggregate": {
+        "total": 7,
+        "correct": 3
+      },
+      "date_functions": {
+        "total": 4,
+        "correct": 3
+      }
+    }
+  },
+  "failures": [
+    {
+      "question": "What are the best-selling products?",
+      "generated_sql": "SELECT p.id, p.nome, SUM(i.quantidade) AS total_quantidade_vendida, SUM(i.valor_total_item) AS total_valor_vendido FROM itens_venda i JOIN produtos p ON i.produto_id = p.id GROUP BY p.id ORDER BY total_quantidade_vendida DESC",
+      "generated_cols": [
+        "id",
+        "nome",
+        "total_quantidade_vendida",
+        "total_valor_vendido"
+      ],
+      "generated_rows": [
+        {
+          "id": 5,
+          "nome": "Licença de Software Básico",
+          "total_quantidade_vendida": 1,
+          "total_valor_vendido": 1080
+        },
+        {
+          "id": 3,
+          "nome": "Desenvolvimento de Website",
+          "total_quantidade_vendida": 1,
+          "total_valor_vendido": 5000
+        },
+        {
+          "id": 1,
+          "nome": "Sistema de Gestão ERP",
+          "total_quantidade_vendida": 1,
+          "total_valor_vendido": 23750
+        }
+      ],
+      "gold_cols": [
+        "id",
+        "codigo_produto",
+        "nome",
+        "total_quantity"
+      ],
+      "gold_rows": [
+        {
+          "id": 1,
+          "codigo_produto": "ERP-001",
+          "nome": "Sistema de Gestão ERP",
+          "total_quantity": 1
+        },
+        {
+          "id": 3,
+          "codigo_produto": "WEB-001",
+          "nome": "Desenvolvimento de Website",
+          "total_quantity": 1
+        },
+        {
+          "id": 5,
+          "codigo_produto": "LIC-001",
+          "nome": "Licença de Software Básico",
+          "total_quantity": 1
+        }
+      ],
+      "result_count": 3,
+      "gold_result_count": 3,
+      "error": null
+    },
+    {
+      "question": "Show a list of active customers",
+      "generated_sql": "SELECT DISTINCT cliente_id FROM vendas WHERE status = 'Pago'",
+      "generated_cols": [
+        "cliente_id"
+      ],
+      "generated_rows": [
+        {
+          "cliente_id": 1
+        },
+        {
+          "cliente_id": 2
+        }
+      ],
+      "gold_cols": [
+        "id",
+        "nome",
+        "email",
+        "telefone",
+        "endereco",
+        "cidade",
+        "estado",
+        "cep",
+        "cnpj",
+        "inscricao_estadual",
+        "tipo_cliente",
+        "segmento_mercado",
+        "data_cadastro",
+        "limite_credito",
+        "ativo"
+      ],
+      "gold_rows": [
+        {
+          "id": 1,
+          "nome": "TechCorp Ltda",
+          "email": "contato@techcorp.com.br",
+          "telefone": "(11) 3333-1001",
+          "endereco": "Av. Faria Lima, 1000",
+          "cidade": "São Paulo",
+          "estado": "SP",
+          "cep": "01451-000",
+          "cnpj": "12.345.678/0001-90",
+          "inscricao_estadual": "123.456.789.012",
+          "tipo_cliente": "Pessoa Jurídica",
+          "segmento_mercado": "Tecnologia",
+          "data_cadastro": "2022-01-15",
+          "limite_credito": 100000,
+          "ativo": 1
+        },
+        {
+          "id": 2,
+          "nome": "InnovaSoft",
+          "email": "vendas@innovasoft.com.br",
+          "telefone": "(11) 3333-1002",
+          "endereco": "Rua Oscar Freire, 500",
+          "cidade": "São Paulo",
+          "estado": "SP",
+          "cep": "01426-001",
+          "cnpj": "23.456.789/0001-01",
+          "inscricao_estadual": "234.567.890.123",
+          "tipo_cliente": "Pessoa Jurídica",
+          "segmento_mercado": "Software",
+          "data_cadastro": "2022-03-20",
+          "limite_credito": 75000,
+          "ativo": 1
+        },
+        {
+          "id": 3,
+          "nome": "Maria José da Silva",
+          "email": "mariajose@gmail.com",
+          "telefone": "(11) 99999-5001",
+          "endereco": "Rua das Palmeiras, 123",
+          "cidade": "São Paulo",
+          "estado": "SP",
+          "cep": "04567-890",
+          "cnpj": "123.456.789-00",
+          "inscricao_estadual": null,
+          "tipo_cliente": "Pessoa Física",
+          "segmento_mercado": "Consultoria",
+          "data_cadastro": "2022-06-10",
+          "limite_credito": 15000,
+          "ativo": 1
+        },
+        {
+          "id": 4,
+          "nome": "Comércio ABC S/A",
+          "email": "financeiro@comercioabc.com.br",
+          "telefone": "(21) 3333-2001",
+          "endereco": "Av. Rio Branco, 200",
+          "cidade": "Rio de Janeiro",
+          "estado": "RJ",
+          "cep": "20040-020",
+          "cnpj": "34.567.890/0001-12",
+          "inscricao_estadual": "345.678.901.234",
+          "tipo_cliente": "Pessoa Jurídica",
+          "segmento_mercado": "Varejo",
+          "data_cadastro": "2021-12-05",
+          "limite_credito": 50000,
+          "ativo": 1
+        },
+        {
+          "id": 5,
+          "nome": "João Carlos Pereira",
+          "email": "joaocarlos@hotmail.com",
+          "telefone": "(11) 99999-5002",
+          "endereco": "Rua Sete de Setembro, 456",
+          "cidade": "São Paulo",
+          "estado": "SP",
+          "cep": "01234-567",
+          "cnpj": "234.567.890-11",
+          "inscricao_estadual": null,
+          "tipo_cliente": "Pessoa Física",
+          "segmento_mercado": "Serviços",
+          "data_cadastro": "2023-02-28",
+          "limite_credito": 10000,
+          "ativo": 1
+        }
+      ],
+      "result_count": 2,
+      "gold_result_count": 5,
+      "error": null
+    },
+    {
+      "question": "List active employees in the Finance department",
+      "generated_sql": "SELECT id, nome, email, cargo, salario FROM funcionarios WHERE ativo = 1 AND departamento = 'Financeiro'",
+      "generated_cols": [
+        "id",
+        "nome",
+        "email",
+        "cargo",
+        "salario"
+      ],
+      "generated_rows": [
+        {
+          "id": 6,
+          "nome": "Roberto Santos",
+          "email": "roberto.santos@xpto.com.br",
+          "cargo": "Contador",
+          "salario": 6000
+        },
+        {
+          "id": 10,
+          "nome": "Ricardo Moura",
+          "email": "ricardo.moura@xpto.com.br",
+          "cargo": "Analista Financeiro",
+          "salario": 5000
+        }
+      ],
+      "gold_cols": [
+        "id",
+        "nome",
+        "email",
+        "cargo",
+        "departamento",
+        "salario",
+        "data_admissao",
+        "telefone",
+        "endereco",
+        "ativo",
+        "supervisor_id"
+      ],
+      "gold_rows": [
+        {
+          "id": 6,
+          "nome": "Roberto Santos",
+          "email": "roberto.santos@xpto.com.br",
+          "cargo": "Contador",
+          "departamento": "Financeiro",
+          "salario": 6000,
+          "data_admissao": "2020-08-30",
+          "telefone": "(11) 99999-1005",
+          "endereco": "Rua do Comércio, 987, São Paulo - SP",
+          "ativo": 1,
+          "supervisor_id": null
+        },
+        {
+          "id": 10,
+          "nome": "Ricardo Moura",
+          "email": "ricardo.moura@xpto.com.br",
+          "cargo": "Analista Financeiro",
+          "departamento": "Financeiro",
+          "salario": 5000,
+          "data_admissao": "2022-09-20",
+          "telefone": "(11) 99999-1008",
+          "endereco": "Rua José Bonifácio, 741, São Paulo - SP",
+          "ativo": 1,
+          "supervisor_id": 6
+        }
+      ],
+      "result_count": 2,
+      "gold_result_count": 2,
+      "error": null
+    },
+    {
+      "question": "Show total sales per employee in 2023",
+      "generated_sql": "SELECT funcionario_id, SUM(valor_total) AS total_sales FROM vendas WHERE strftime('%Y', data_venda) = '2023' GROUP BY funcionario_id",
+      "generated_cols": [
+        "funcionario_id",
+        "total_sales"
+      ],
+      "generated_rows": [
+        {
+          "funcionario_id": 3,
+          "total_sales": 24830
+        },
+        {
+          "funcionario_id": 7,
+          "total_sales": 5000
+        }
+      ],
+      "gold_cols": [
+        "id",
+        "nome",
+        "order_count",
+        "revenue"
+      ],
+      "gold_rows": [
+        {
+          "id": 3,
+          "nome": "Ana Carolina Costa",
+          "order_count": 2,
+          "revenue": 24830
+        },
+        {
+          "id": 7,
+          "nome": "Luciana Ferreira",
+          "order_count": 1,
+          "revenue": 5000
+        },
+        {
+          "id": 1,
+          "nome": "Maria Silva Santos",
+          "order_count": 0,
+          "revenue": null
+        },
+        {
+          "id": 2,
+          "nome": "João Pedro Oliveira",
+          "order_count": 0,
+          "revenue": null
+        },
+        {
+          "id": 4,
+          "nome": "Carlos Eduardo Lima",
+          "order_count": 0,
+          "revenue": null
+        },
+        {
+          "id": 5,
+          "nome": "Fernanda Almeida",
+          "order_count": 0,
+          "revenue": null
+        },
+        {
+          "id": 6,
+          "nome": "Roberto Santos",
+          "order_count": 0,
+          "revenue": null
+        },
+        {
+          "id": 8,
+          "nome": "Pedro Henrique Silva",
+          "order_count": 0,
+          "revenue": null
+        },
+        {
+          "id": 9,
+          "nome": "Juliana Rodrigues",
+          "order_count": 0,
+          "revenue": null
+        },
+        {
+          "id": 10,
+          "nome": "Ricardo Moura",
+          "order_count": 0,
+          "revenue": null
+        }
+      ],
+      "result_count": 2,
+      "gold_result_count": 10,
+      "error": null
+    },
+    {
+      "question": "Count how many distinct products have sold in 2023",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "OperationalError: no such column: produto_id"
+    },
+    {
+      "question": "Find the top 3 clients with the highest value orders",
+      "generated_sql": "SELECT cliente_id, SUM(valor_total) AS total_valor FROM vendas GROUP BY cliente_id ORDER BY total_valor DESC LIMIT 3",
+      "generated_cols": [
+        "cliente_id",
+        "total_valor"
+      ],
+      "generated_rows": [
+        {
+          "cliente_id": 1,
+          "total_valor": 23750
+        },
+        {
+          "cliente_id": 2,
+          "total_valor": 5000
+        },
+        {
+          "cliente_id": 3,
+          "total_valor": 1080
+        }
+      ],
+      "gold_cols": [
+        "id",
+        "nome",
+        "revenue"
+      ],
+      "gold_rows": [
+        {
+          "id": 1,
+          "nome": "TechCorp Ltda",
+          "revenue": 23750
+        },
+        {
+          "id": 2,
+          "nome": "InnovaSoft",
+          "revenue": 5000
+        },
+        {
+          "id": 3,
+          "nome": "Maria José da Silva",
+          "revenue": 1080
+        }
+      ],
+      "result_count": 3,
+      "gold_result_count": 3,
+      "error": null
+    },
+    {
+      "question": "Which category generated more than one product sold this year?",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "ValueError: Generated SQL failed validation: disallowed tables used: {'categorias'}"
+    },
+    {
+      "question": "Quantos clientes receberam crédito acima de R$ 10 mil?",
+      "generated_sql": "SELECT COUNT(*) AS total_clientes FROM clientes WHERE limite_credito > 10000",
+      "generated_cols": [
+        "total_clientes"
+      ],
+      "generated_rows": [
+        {
+          "total_clientes": 4
+        }
+      ],
+      "gold_cols": [
+        "id",
+        "nome",
+        "email",
+        "telefone",
+        "endereco",
+        "cidade",
+        "estado",
+        "cep",
+        "cnpj",
+        "inscricao_estadual",
+        "tipo_cliente",
+        "segmento_mercado",
+        "data_cadastro",
+        "limite_credito",
+        "ativo"
+      ],
+      "gold_rows": [],
+      "result_count": 1,
+      "gold_result_count": 0,
+      "error": null
+    },
+    {
+      "question": "Qual foi o total de vendas neste mês?",
+      "generated_sql": "SELECT COALESCE(SUM(valor_total), 0) AS total_vendas_mes FROM vendas WHERE strftime('%Y-%m', data_venda) = strftime('%Y-%m', 'now')",
+      "generated_cols": [
+        "total_vendas_mes"
+      ],
+      "generated_rows": [
+        {
+          "total_vendas_mes": 0
+        }
+      ],
+      "gold_cols": [
+        "total_monthly"
+      ],
+      "gold_rows": [
+        {
+          "total_monthly": 1080
+        }
+      ],
+      "result_count": 1,
+      "gold_result_count": 1,
+      "error": null
+    },
+    {
+      "question": "Mostre os produtos com maior reserva de estoque",
+      "generated_sql": "SELECT id, codigo_produto, nome, (estoque_atual - estoque_minimo) AS reserva_estoque\nFROM produtos\nWHERE (estoque_atual - estoque_minimo) = (\n    SELECT MAX(estoque_atual - estoque_minimo) FROM produtos\n)",
+      "generated_cols": [
+        "id",
+        "codigo_produto",
+        "nome",
+        "reserva_estoque"
+      ],
+      "generated_rows": [
+        {
+          "id": 5,
+          "codigo_produto": "LIC-001",
+          "nome": "Licença de Software Básico",
+          "reserva_estoque": 40
+        }
+      ],
+      "gold_cols": [
+        "id",
+        "codigo_produto",
+        "nome",
+        "descricao",
+        "categoria",
+        "subcategoria",
+        "preco_venda",
+        "custo_unitario",
+        "margem_lucro",
+        "estoque_atual",
+        "estoque_minimo",
+        "estoque_maximo",
+        "unidade_medida",
+        "fornecedor_principal",
+        "localizacao_estoque",
+        "ativo"
+      ],
+      "gold_rows": [],
+      "result_count": 1,
+      "gold_result_count": 0,
+      "error": null
+    },
+    {
+      "question": "Para cada cliente, qual foi o valor mínimo da venda mais recente?",
+      "generated_sql": "SELECT v.cliente_id,\n       MIN(v.valor_total) AS valor_minimo_venda_mais_recente\nFROM   vendas v\nJOIN ( SELECT cliente_id,\n              MAX(data_venda) AS max_data\n       FROM   vendas\n       GROUP BY cliente_id ) mv\n  ON v.cliente_id = mv.cliente_id\n AND v.data_venda = mv.max_data\nGROUP BY v.cliente_id",
+      "generated_cols": [
+        "cliente_id",
+        "valor_minimo_venda_mais_recente"
+      ],
+      "generated_rows": [
+        {
+          "cliente_id": 1,
+          "valor_minimo_venda_mais_recente": 23750
+        },
+        {
+          "cliente_id": 2,
+          "valor_minimo_venda_mais_recente": 5000
+        },
+        {
+          "cliente_id": 3,
+          "valor_minimo_venda_mais_recente": 1080
+        }
+      ],
+      "gold_cols": [
+        "id",
+        "nome",
+        "min_recent_revenue"
+      ],
+      "gold_rows": [
+        {
+          "id": 1,
+          "nome": "TechCorp Ltda",
+          "min_recent_revenue": 23750
+        },
+        {
+          "id": 2,
+          "nome": "InnovaSoft",
+          "min_recent_revenue": 5000
+        },
+        {
+          "id": 3,
+          "nome": "Maria José da Silva",
+          "min_recent_revenue": 1080
+        }
+      ],
+      "result_count": 3,
+      "gold_result_count": 3,
+      "error": null
+    },
+    {
+      "question": "O total de vendas por categoria organizado por ordem crescente",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "OperationalError: no such column: v.produto_id"
+    },
+    {
+      "question": "Valores totais dos usuários com telefone contato primário",
+      "generated_sql": "SELECT SUM(v.valor_total) AS total_valor\nFROM vendas v\nJOIN clientes c ON v.cliente_id = c.id\nWHERE c.telefone IS NOT NULL AND TRIM(c.telefone) <> ''",
+      "generated_cols": [
+        "total_valor"
+      ],
+      "generated_rows": [
+        {
+          "total_valor": 29830
+        }
+      ],
+      "gold_cols": [
+        "cargo",
+        "COUNT(*)"
+      ],
+      "gold_rows": [
+        {
+          "cargo": "Consultora de Vendas",
+          "COUNT(*)": 1
+        },
+        {
+          "cargo": "Desenvolvedor Senior",
+          "COUNT(*)": 1
+        }
+      ],
+      "result_count": 1,
+      "gold_result_count": 2,
+      "error": null
+    },
+    {
+      "question": "Quantos produtos diferentes foram vendidos em 2023",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "OperationalError: no such column: data_venda"
+    },
+    {
+      "question": "Os departamentos que tiveram menos de 200 mil em orçamento",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "OperationalError: no such column: name"
+    },
+    {
+      "question": "Vendas para clientes com cep starting 014",
+      "generated_sql": "SELECT v.* FROM vendas v JOIN clientes c ON v.cliente_id = c.id WHERE c.cep LIKE '014%'",
+      "generated_cols": [
+        "id",
+        "numero_pedido",
+        "cliente_id",
+        "funcionario_id",
+        "data_venda",
+        "data_entrega_prevista",
+        "data_entrega_real",
+        "valor_bruto",
+        "desconto",
+        "valor_total",
+        "descricao",
+        "forma_pagamento",
+        "condicoes_pagamento",
+        "status",
+        "observacoes"
+      ],
+      "generated_rows": [
+        {
+          "id": 1,
+          "numero_pedido": "PED-2023-001",
+          "cliente_id": 1,
+          "funcionario_id": 3,
+          "data_venda": "2023-08-15",
+          "data_entrega_prevista": "2023-09-15",
+          "data_entrega_real": "2023-09-10",
+          "valor_bruto": 25000,
+          "desconto": 5,
+          "valor_total": 23750,
+          "descricao": "Venda sistema ERP",
+          "forma_pagamento": "Boleto",
+          "condicoes_pagamento": "30 dias",
+          "status": "Pago",
+          "observacoes": "Cliente muito satisfeito"
+        },
+        {
+          "id": 2,
+          "numero_pedido": "PED-2023-002",
+          "cliente_id": 2,
+          "funcionario_id": 7,
+          "data_venda": "2023-09-20",
+          "data_entrega_prevista": "2023-10-20",
+          "data_entrega_real": "2023-10-18",
+          "valor_bruto": 5000,
+          "desconto": 0,
+          "valor_total": 5000,
+          "descricao": "Desenvolvimento website",
+          "forma_pagamento": "PIX",
+          "condicoes_pagamento": "À vista",
+          "status": "Pago",
+          "observacoes": null
+        }
+      ],
+      "gold_cols": [
+        "id",
+        "nome",
+        "email",
+        "telefone",
+        "endereco",
+        "cidade",
+        "estado",
+        "cep",
+        "cnpj",
+        "inscricao_estadual",
+        "tipo_cliente",
+        "segmento_mercado",
+        "data_cadastro",
+        "limite_credito",
+        "ativo"
+      ],
+      "gold_rows": [
+        {
+          "id": 1,
+          "nome": "TechCorp Ltda",
+          "email": "contato@techcorp.com.br",
+          "telefone": "(11) 3333-1001",
+          "endereco": "Av. Faria Lima, 1000",
+          "cidade": "São Paulo",
+          "estado": "SP",
+          "cep": "01451-000",
+          "cnpj": "12.345.678/0001-90",
+          "inscricao_estadual": "123.456.789.012",
+          "tipo_cliente": "Pessoa Jurídica",
+          "segmento_mercado": "Tecnologia",
+          "data_cadastro": "2022-01-15",
+          "limite_credito": 100000,
+          "ativo": 1
+        },
+        {
+          "id": 2,
+          "nome": "InnovaSoft",
+          "email": "vendas@innovasoft.com.br",
+          "telefone": "(11) 3333-1002",
+          "endereco": "Rua Oscar Freire, 500",
+          "cidade": "São Paulo",
+          "estado": "SP",
+          "cep": "01426-001",
+          "cnpj": "23.456.789/0001-01",
+          "inscricao_estadual": "234.567.890.123",
+          "tipo_cliente": "Pessoa Jurídica",
+          "segmento_mercado": "Software",
+          "data_cadastro": "2022-03-20",
+          "limite_credito": 75000,
+          "ativo": 1
+        }
+      ],
+      "result_count": 2,
+      "gold_result_count": 2,
+      "error": null
+    },
+    {
+      "question": "Best selling products joined with total quantity ordered descending",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "OperationalError: no such column: iv.valor_total"
+    },
+    {
+      "question": "Average salary per department joined with department details",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "OperationalError: no such column: f.departamento_id"
+    },
+    {
+      "question": "Total revenue excluding discounted orders",
+      "generated_sql": "SELECT COALESCE(SUM(valor_total), 0) AS total_revenue FROM vendas WHERE desconto = 0",
+      "generated_cols": [
+        "total_revenue"
+      ],
+      "generated_rows": [
+        {
+          "total_revenue": 5000
+        }
+      ],
+      "gold_cols": [
+        "net_revenue"
+      ],
+      "gold_rows": [
+        {
+          "net_revenue": 24830
+        }
+      ],
+      "result_count": 1,
+      "gold_result_count": 1,
+      "error": null
+    },
+    {
+      "question": "Pedido números consecutivos últimos 5 datas de venda",
+      "generated_sql": "SELECT numero_pedido FROM vendas ORDER BY data_venda DESC LIMIT 5",
+      "generated_cols": [
+        "numero_pedido"
+      ],
+      "generated_rows": [
+        {
+          "numero_pedido": "PED-2023-003"
+        },
+        {
+          "numero_pedido": "PED-2023-002"
+        },
+        {
+          "numero_pedido": "PED-2023-001"
+        }
+      ],
+      "gold_cols": [
+        "id",
+        "numero_pedido",
+        "data_venda"
+      ],
+      "gold_rows": [
+        {
+          "id": 1,
+          "numero_pedido": "PED-2023-001",
+          "data_venda": "2023-08-15"
+        },
+        {
+          "id": 2,
+          "numero_pedido": "PED-2023-002",
+          "data_venda": "2023-09-20"
+        },
+        {
+          "id": 3,
+          "numero_pedido": "PED-2023-003",
+          "data_venda": "2023-10-05"
+        }
+      ],
+      "result_count": 3,
+      "gold_result_count": 3,
+      "error": null
+    },
+    {
+      "question": "Ordem de crescimento dos departamentos pelos seus gerentes",
+      "generated_sql": "SELECT id, nome, orcamento, gerente_id FROM departamentos ORDER BY orcamento ASC",
+      "generated_cols": [
+        "id",
+        "nome",
+        "orcamento",
+        "gerente_id"
+      ],
+      "generated_rows": [
+        {
+          "id": 5,
+          "nome": "Financeiro",
+          "orcamento": 150000,
+          "gerente_id": null
+        },
+        {
+          "id": 2,
+          "nome": "Recursos Humanos",
+          "orcamento": 200000,
+          "gerente_id": null
+        },
+        {
+          "id": 4,
+          "nome": "Marketing",
+          "orcamento": 300000,
+          "gerente_id": null
+        },
+        {
+          "id": 1,
+          "nome": "Tecnologia da Informação",
+          "orcamento": 500000,
+          "gerente_id": null
+        },
+        {
+          "id": 6,
+          "nome": "Operações",
+          "orcamento": 600000,
+          "gerente_id": null
+        },
+        {
+          "id": 3,
+          "nome": "Vendas",
+          "orcamento": 800000,
+          "gerente_id": null
+        }
+      ],
+      "gold_cols": [
+        "nome",
+        "localizacao"
+      ],
+      "gold_rows": [
+        {
+          "nome": null,
+          "localizacao": "São Paulo - SP"
+        },
+        {
+          "nome": null,
+          "localizacao": "Rio de Janeiro - RJ"
+        },
+        {
+          "nome": null,
+          "localizacao": "Belo Horizonte - MG"
+        },
+        {
+          "nome": null,
+          "localizacao": "São Paulo - SP"
+        },
+        {
+          "nome": null,
+          "localizacao": "São Paulo - SP"
+        },
+        {
+          "nome": null,
+          "localizacao": "São Paulo - SP"
+        }
+      ],
+      "result_count": 6,
+      "gold_result_count": 6,
+      "error": null
+    },
+    {
+      "question": "Clientes de SP ou RJ cujo status é pago",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "OperationalError: no such column: status"
+    },
+    {
+      "question": "Total geral de vendas agrupado por status do pedido",
+      "generated_sql": "SELECT status, SUM(valor_total) AS total_vendas FROM vendas GROUP BY status",
+      "generated_cols": [
+        "status",
+        "total_vendas"
+      ],
+      "generated_rows": [
+        {
+          "status": "Faturado",
+          "total_vendas": 1080
+        },
+        {
+          "status": "Pago",
+          "total_vendas": 28750
+        }
+      ],
+      "gold_cols": [
+        "status",
+        "count"
+      ],
+      "gold_rows": [
+        {
+          "status": "Faturado",
+          "count": 1
+        },
+        {
+          "status": "Pago",
+          "count": 2
+        }
+      ],
+      "result_count": 2,
+      "gold_result_count": 2,
+      "error": null
+    },
+    {
+      "question": "Clientes cadastrados antes de janeiro de 2023 cujo tipo é PJ",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "OperationalError: no such column: tipo"
+    }
+  ],
+  "timestamp": "20261026-183540"
+}

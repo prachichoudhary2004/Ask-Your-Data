@@ -1,0 +1,26 @@
+{
+  "question": "Revenue by month for 2023",
+  "result": {
+    "sql": "SELECT strftime('%Y-%m', data_venda) AS month, SUM(valor_total) AS revenue FROM vendas WHERE strftime('%Y', data_venda) = '2023' GROUP BY month ORDER BY month",
+    "cols": [
+      "month",
+      "revenue"
+    ],
+    "rows": [
+      {
+        "month": "2023-08",
+        "revenue": 23750
+      },
+      {
+        "month": "2023-09",
+        "revenue": 5000
+      },
+      {
+        "month": "2023-10",
+        "revenue": 1080
+      }
+    ],
+    "latency_seconds": 44.3392
+  },
+  "cached_at": "20261026T193634Z"
+}

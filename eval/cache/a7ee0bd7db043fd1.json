@@ -1,0 +1,22 @@
+{
+  "question": "List all software products ordered by most expensive",
+  "result": {
+    "sql": "SELECT nome, preco_venda FROM produtos WHERE categoria = 'Software' ORDER BY preco_venda DESC",
+    "cols": [
+      "nome",
+      "preco_venda"
+    ],
+    "rows": [
+      {
+        "nome": "Sistema de Gestão ERP",
+        "preco_venda": 25000
+      },
+      {
+        "nome": "Licença de Software Básico",
+        "preco_venda": 1200
+      }
+    ],
+    "latency_seconds": 1.2916
+  },
+  "cached_at": "20261026T194452Z"
+}

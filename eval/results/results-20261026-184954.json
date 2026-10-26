@@ -1,0 +1,282 @@
+{
+  "summary": {
+    "total": 41,
+    "accuracy": 0.0,
+    "average_latency_seconds": 0.383,
+    "categories": {
+      "aggregation": {
+        "total": 5,
+        "correct": 0
+      },
+      "join": {
+        "total": 5,
+        "correct": 0
+      },
+      "filter": {
+        "total": 15,
+        "correct": 0
+      },
+      "group_by": {
+        "total": 5,
+        "correct": 0
+      },
+      "aggregate": {
+        "total": 7,
+        "correct": 0
+      },
+      "date_functions": {
+        "total": 4,
+        "correct": 0
+      }
+    }
+  },
+  "failures": [
+    {
+      "question": "How many sales were made in 2024?",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199684, Requested 1051. Please try again in 5m17.52s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "What are the best-selling products?",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199683, Requested 885. Please try again in 4m5.376s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Show a list of active customers",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199682, Requested 941. Please try again in 4m29.136s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Revenue by month for 2023",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199681, Requested 1106. Please try again in 5m39.984s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "List active employees in the Finance department",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199680, Requested 924. Please try again in 4m20.928s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Show total sales per employee in 2023",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199679, Requested 1108. Please try again in 5m39.984s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Count how many distinct products have sold in 2023",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199679, Requested 940. Please try again in 4m27.408s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Find the top 3 clients with the highest value orders",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199678, Requested 911. Please try again in 4m14.448s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "List all software products ordered by most expensive",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199677, Requested 1015. Please try again in 4m58.944s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Which category generated more than one product sold this year?",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199676, Requested 871. Please try again in 3m56.304s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Quais são os funcionários que foram admitidos no último trimestre?",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199675, Requested 1015. Please try again in 4m58.08s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Quantos clientes receberam crédito acima de R$ 10 mil?",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199675, Requested 1067. Please try again in 5m20.544s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Qual foi o total de vendas neste mês?",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199674, Requested 1009. Please try again in 4m55.056s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Mostre os produtos com maior reserva de estoque",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199673, Requested 1072. Please try again in 5m21.84s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Para cada cliente, qual foi o valor mínimo da venda mais recente?",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199672, Requested 1038. Please try again in 5m6.72s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Existem clientes sem nenhuma venda registrada?",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199671, Requested 952. Please try again in 4m29.136s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Encontre os produtivos cuja margem de lucro ultrapassou 40%",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199670, Requested 1099. Please try again in 5m32.208s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Qualquer produto com preço maior que 20 mil eativo",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199669, Requested 1017. Please try again in 4m56.352s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "O total de vendas por categoria organizado por ordem crescente",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199668, Requested 1006. Please try again in 4m51.168s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Valores totais dos usuários com telefone contato primário",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199668, Requested 1027. Please try again in 5m0.24s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Encontre fornecedores em São Paulo com avaliação maior que 4,5",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199667, Requested 911. Please try again in 4m9.696s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Prove o numero de vendas do ano passado",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199666, Requested 1002. Please try again in 4m48.576s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Quantos produtos diferentes foram vendidos em 2023",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199665, Requested 936. Please try again in 4m19.632s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Os departamentos que tiveram menos de 200 mil em orçamento",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199664, Requested 912. Please try again in 4m8.832s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Vendas para clientes com cep starting 014",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199663, Requested 1166. Please try again in 5m58.128s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Best selling products joined with total quantity ordered descending",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199663, Requested 946. Please try again in 4m23.088s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Average salary per department joined with department details",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199662, Requested 1012. Please try again in 4m51.168s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Total revenue excluding discounted orders",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199661, Requested 1008. Please try again in 4m49.008s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Pedido números consecutivos últimos 5 datas de venda",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199660, Requested 940. Please try again in 4m19.2s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Fornecedores cujo prazo de entrega é inferior a 30 dias",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199659, Requested 1163. Please try again in 5m55.104s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Total vendas para clientes todos que estão ativos",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199658, Requested 1138. Please try again in 5m43.872s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Ordem de crescimento dos departamentos pelos seus gerentes",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199658, Requested 797. Please try again in 3m16.56s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Clientes de SP ou RJ cujo status é pago",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199657, Requested 1103. Please try again in 5m28.32s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Total geral de vendas agrupado por status do pedido",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199656, Requested 1007. Please try again in 4m46.416s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Sem descontos nas vendas deWebsite Development no mês atual",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199655, Requested 1074. Please try again in 5m14.928s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Calcule o valor médio do salário dos funcionários ativos",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199654, Requested 989. Please try again in 4m37.776s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Clientes cadastrados antes de janeiro de 2023 cujo tipo é PJ",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199653, Requested 982. Please try again in 4m34.32s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Identifique os projetos que terminaram ou foram cancelados",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199652, Requested 906. Please try again in 4m1.055999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Total vendas com valor exatamente 23750 nos últimos 6 meses",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199651, Requested 1026. Please try again in 4m52.464s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Produtos em estoque inferior a 5 unidades eativo",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199651, Requested 1082. Please try again in 5m16.656s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "question": "Funcionários supervisionando mais de um departamento",
+      "generated_sql": null,
+      "generated_cols": [],
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m5jczbx4ew1vrz3xm8naq2g2` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199650, Requested 1012. Please try again in 4m45.984s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    }
+  ],
+  "timestamp": "20261026-184954"
+}

@@ -1,0 +1,12 @@
+{
+  "question": "Which product categories had more than one distinct product sold?",
+  "result": {
+    "sql": "SELECT p.subcategoria\nFROM itens_venda iv\nJOIN produtos p ON iv.produto_id = p.id\nGROUP BY p.subcategoria\nHAVING COUNT(DISTINCT p.id) > 1",
+    "cols": [
+      "subcategoria"
+    ],
+    "rows": [],
+    "latency_seconds": 64.02
+  },
+  "cached_at": "20261026T194802Z"
+}

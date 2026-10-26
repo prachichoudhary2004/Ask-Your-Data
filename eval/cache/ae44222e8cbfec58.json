@@ -1,0 +1,16 @@
+{
+  "question": "How many sales were made in 2023?",
+  "result": {
+    "sql": "SELECT COUNT(*) FROM vendas WHERE strftime('%Y', data_venda) = '2023'",
+    "cols": [
+      "COUNT(*)"
+    ],
+    "rows": [
+      {
+        "COUNT(*)": 3
+      }
+    ],
+    "latency_seconds": 2.7912
+  },
+  "cached_at": "20261026T192650Z"
+}

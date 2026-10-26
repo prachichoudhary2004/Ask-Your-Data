@@ -1,0 +1,64 @@
+{
+  "timestamp": "20261026T192651Z",
+  "summary": {
+    "total": 2,
+    "correct": 2,
+    "wrong": 0,
+    "validator_rejected": 0,
+    "infra_error": 0,
+    "completed": 2,
+    "accuracy_all": 1.0,
+    "accuracy_completed": 1.0,
+    "average_latency_seconds": 2.2059,
+    "categories": {
+      "count": {
+        "total": 1,
+        "correct": 1,
+        "wrong": 0,
+        "validator_rejected": 0,
+        "infra_error": 0,
+        "accuracy_all": 1.0,
+        "accuracy_completed": 1.0,
+        "average_latency_seconds": 2.7912
+      },
+      "join": {
+        "total": 1,
+        "correct": 1,
+        "wrong": 0,
+        "validator_rejected": 0,
+        "infra_error": 0,
+        "accuracy_all": 1.0,
+        "accuracy_completed": 1.0,
+        "average_latency_seconds": 1.6206
+      }
+    }
+  },
+  "results": [
+    {
+      "id": 1,
+      "question": "How many sales were made in 2023?",
+      "category": "count",
+      "language": "en",
+      "tricky": false,
+      "outcome": "correct",
+      "generated_sql": "SELECT COUNT(*) FROM vendas WHERE strftime('%Y', data_venda) = '2023'",
+      "gold_sql": "SELECT COUNT(*) AS total_sales FROM vendas WHERE strftime('%Y', data_venda) = '2023'",
+      "generated_row_count": 1,
+      "gold_row_count": 1,
+      "latency_seconds": 2.7912
+    },
+    {
+      "id": 2,
+      "question": "What are the best-selling products by quantity?",
+      "category": "join",
+      "language": "en",
+      "tricky": false,
+      "outcome": "correct",
+      "generated_sql": "SELECT p.id, p.codigo_produto, p.nome, SUM(iv.quantidade) AS total_quantity\nFROM itens_venda iv\nJOIN produtos p ON iv.produto_id = p.id\nGROUP BY p.id, p.codigo_produto, p.nome\nORDER BY total_quantity DESC",
+      "gold_sql": "SELECT p.id, p.codigo_produto, p.nome, SUM(iv.quantidade) AS total_quantity FROM itens_venda iv JOIN produtos p ON iv.produto_id = p.id GROUP BY p.id, p.codigo_produto, p.nome ORDER BY total_quantity DESC",
+      "generated_row_count": 3,
+      "gold_row_count": 3,
+      "latency_seconds": 1.6206
+    }
+  ]
+}
