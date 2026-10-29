@@ -28,6 +28,8 @@ class QueryResponse(BaseModel):
     cols: Optional[List[str]] = None
     rows: Optional[List[Dict]] = None
     error: Optional[str] = None
+    latency_seconds: float = 0.0
+    attempts: int = 1
 
 
 @app.get("/")
