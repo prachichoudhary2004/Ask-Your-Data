@@ -19,10 +19,15 @@ def extract_tables(sql: str) -> Set[str]:
     return tables
 
 def allowed_tables_from_db(sqlite_path: str):
-    '''Get allowed table names from the SQLite database.'''
+    '''Get allowed table names from the SQLite database (business tables only, excludes metadata).'''
     conn = sqlite3.connect(sqlite_path)
     cur = conn.cursor()
-    cur.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'")
+    cur.execute("""
+        SELECT name FROM sqlite_master
+        WHERE type='table'
+        AND name NOT LIKE 'sqlite_%'
+        AND name NOT IN ('table_comments', 'column_comments')
+    """)
     tables = [t[0] for t in cur.fetchall()]
     conn.close()
     return set(tables)

@@ -33,7 +33,7 @@ vectordb = Chroma(persist_directory=os.getenv("VECTOR_STORE_DIR"),
 
 # Increments the number of documents retrieved for reranking,
 # to allow the rerank model to choose the best ones
-initial_k = int(os.getenv("TOP_K")) * 3
+initial_k = int(os.getenv("TOP_K", "5")) * 3
 retriever = vectordb.as_retriever(search_kwargs={"k": initial_k})
 
 # Initialize the rerank model
