@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """eval/regrade.py - Re-execute and re-score a results JSON file.
 
 Usage
@@ -23,7 +23,6 @@ eval/results/regrade-<timestamp>.json.
 """
 
 import json
-import os
 import re
 import sqlite3
 import sys

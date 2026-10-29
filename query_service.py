@@ -2,7 +2,7 @@
 '''
 import os
 import logging
-
+import re
 from pydantic import BaseModel
 
 from retriever_node import retriever_node
@@ -55,7 +55,7 @@ def _llm_retry(question: str, failed_sql: str, error_msg: str) -> str:
     # Strip code fences and whitespace
     out = re.sub(r"```(?:sql)?\n?", "", str(out), flags=re.IGNORECASE).replace("```", "").strip()
     # Ensure we have a SELECT
-    match = re.search(r"(select\\b.*)", out, flags=re.IGNORECASE | re.DOTALL)
+    match = re.search(r"(select\b.*)", out, flags=re.IGNORECASE | re.DOTALL)
     if match:
         out = match.group(1).strip()
     return out.rstrip(";").strip()
@@ -76,7 +76,7 @@ def query(req: QueryRequest):
     state = retriever_node(state)
     # keep retrieved docs for possible reuse
     retrieved_docs = state.get("retrieved_docs", [])
-
+    error_msg = ""
     while attempts < max_attempts:
         attempts += 1
         logger.info("Attempt %d for question: %s", attempts, req.question)

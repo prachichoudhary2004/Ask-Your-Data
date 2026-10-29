@@ -1,4 +1,4 @@
-﻿"""ui.py - Chat-style Streamlit UI for the Text-to-SQL Chatbot with RAG."""
+"""ui.py - Chat-style Streamlit UI for the Text-to-SQL Chatbot with RAG."""
 
 import logging
 
@@ -99,13 +99,16 @@ def render_sidebar() -> str | None:
             if st.button(q, use_container_width=True, key=f"ex_{q}"):
                 clicked = q
 
+        st.divider()
+        st.caption("Model: Groq LLM · Read-only database")
+
     return clicked
 
 
 # ---------------------------------------------------------------------------
 # Chat rendering
 # ---------------------------------------------------------------------------
-def render_answer(result: dict) -> None:
+def render_answer(result: dict, key: str = "0") -> None:
     """Render one assistant answer inside an already-opened chat_message block."""
     if not result.get("success"):
         st.warning("I couldn't answer that. Try rephrasing your question.")
@@ -120,7 +123,17 @@ def render_answer(result: dict) -> None:
     # Results table
     if rows:
         df = pd.DataFrame(rows, columns=cols if cols else None)
-        st.dataframe(df, use_container_width=True)
+        st.dataframe(df, use_container_width=True, hide_index=True)
+
+        # Download CSV
+        csv = df.to_csv(index=False)
+        st.download_button(
+            "📥 Download CSV",
+            data=csv,
+            file_name="query_results.csv",
+            mime="text/csv",
+            key=f"dl_{key}",
+        )
 
         # Optional chart
         chart_spec = choose_chart(cols, rows)
@@ -156,13 +169,24 @@ def main() -> None:
 
     st.header("🤖 Ask Your Data")
 
+    # Welcome message when the chat is empty
+    if not st.session_state.messages:
+        st.markdown(
+            "Ask questions about the **XPTO company database** in English or Portuguese."
+        )
+        st.markdown(
+            "💡 Try: *\"How many sales were made?\"* · "
+            "*\"Revenue by month\"* · "
+            "*\"List all active employees\"*"
+        )
+
     # Replay full chat history
-    for msg in st.session_state.messages:
+    for i, msg in enumerate(st.session_state.messages):
         with st.chat_message(msg["role"]):
             if msg["role"] == "user":
                 st.markdown(msg["content"])
             else:
-                render_answer(msg["result"])
+                render_answer(msg["result"], key=str(i))
 
     # Determine the question for this run
     user_input = st.chat_input("Ask a question about your data…")
@@ -178,7 +202,7 @@ def main() -> None:
         with st.chat_message("assistant"):
             with st.spinner("Querying…"):
                 result = call_api(question)
-            render_answer(result)
+            render_answer(result, key=str(len(st.session_state.messages)))
 
         st.session_state.messages.append({"role": "assistant", "result": result})
 

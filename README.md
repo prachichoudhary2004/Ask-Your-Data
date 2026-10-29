@@ -1,5 +1,7 @@
 # Ask Your Data - Text-to-SQL Chatbot with RAG
 
+[![CI](https://github.com/prachichoudhary2004/Ask-Your-Data/actions/workflows/ci.yml/badge.svg)](https://github.com/prachichoudhary2004/Ask-Your-Data/actions/workflows/ci.yml)
+
 A powerful chatbot that converts natural language questions into SQL queries using Retrieval-Augmented Generation (RAG). Ask questions in plain English and get structured database results instantly.
 
 ## 🌟 Features
