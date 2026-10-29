@@ -1,95 +1,92 @@
-#!/usr/bin/env python3
-"""Helper utilities for chart selection and rendering in the Streamlit UI."""
+﻿#!/usr/bin/env python3
+"""chart_utils.py - Chart selection helper for the Streamlit UI.
+
+Public API
+----------
+choose_chart(cols, rows) -> dict
+    cols : list[str]   - column names
+    rows : list[dict]  - rows as returned by the API (list of {col: value})
+
+Returns
+-------
+{"type": "bar" | "line" | None, "x": col_name, "y": col_name}
+
+Rules (in priority order)
+--------------------------
+1. First column contains date/month strings (YYYY-MM-DD or YYYY-MM) AND there
+   is at least one numeric column -> "line"
+2. Exactly one text column AND exactly one numeric column AND at most 30 rows
+   -> "bar"
+3. Any other case -> None
+"""
 from __future__ import annotations
 
 import re
-from typing import Optional
 
-_DATE_PATTERNS = [
-    re.compile(r"^\d{4}-\d{2}-\d{2}$"),
-    re.compile(r"^\d{4}-\d{2}$"),
-    re.compile(r"^\d{4}$"),
-    re.compile(r"^[A-Za-z]{3} \d{1,2}, \d{4}$"),  # e.g. "Jul 15, 2023"
-]
+_DATE_RE = re.compile(r"^\d{4}-\d{2}(-\d{2})?$")  # YYYY-MM or YYYY-MM-DD
 
 
-def _is_date_like(value: str) -> bool:
-    s = value.strip()
-    return any(p.match(s) for p in _DATE_PATTERNS)
+def _is_date_like(value) -> bool:
+    """Return True when *value* looks like a date or year-month string."""
+    return bool(_DATE_RE.match(str(value).strip()))
 
 
-def _first_numeric(values):
-    """Return the first numeric-looking cell value as a float, or None."""
-    for v in values:
-        if v is None:
-            continue
-        try:
-            cleaned = re.sub(r"[,\s\$]", "", str(v))
-            if cleaned == "" or cleaned in ("inf", "-inf", "+inf"):
-                continue
-            f = float(cleaned)
-            return f
-        except ValueError:
-            continue
-    return None
+def _to_float(value) -> float | None:
+    """Convert *value* to float, returning None on failure or if None."""
+    if value is None:
+        return None
+    try:
+        cleaned = re.sub(r"[,\s$]", "", str(value))
+        if not cleaned or cleaned in ("inf", "-inf", "+inf", "nan"):
+            return None
+        return float(cleaned)
+    except ValueError:
+        return None
 
 
-def choose_chart(cols, rows) -> dict:
-    """Pick the best Streamlit chart type for the current data.
+def _col_is_numeric(col: str, rows: list[dict]) -> bool:
+    """True when the majority of non-None values in *col* parse as floats."""
+    vals = [_to_float(r.get(col)) for r in rows]
+    good = [v for v in vals if v is not None]
+    return len(good) > 0 and len(good) >= len(rows) * 0.5
 
-    Returns ``{"type": "bar" | "line" | "scatter" | None, "x": col, "y": col}``.
-    Rules (in priority order):
-      1. Two numeric columns      -> scatter
-      2. One date column + numeric -> line
-      3. One categorical + numeric -> bar
-      4. Otherwise                  -> None
 
-    Categorical means no commas/dashes at all (ideal for charts).
+def choose_chart(cols: list, rows: list) -> dict:
+    """Pick the best chart type for the given data.
+
+    Parameters
+    ----------
+    cols : list[str]
+    rows : list[dict]  (each dict maps column name -> value)
+
+    Returns
+    -------
+    {"type": "bar" | "line" | None, "x": str, "y": str}
     """
-    nonempty = list(rows) if rows else []
-    if not nonempty:
+    if not rows or not cols:
         return {"type": None}
 
-    col_values = {}
-    for col in cols:
-        col_values[col] = [r.get(col) for r in nonempty]
+    n_rows = len(rows)
 
+    # Classify each column
+    date_cols    = []
     numeric_cols = []
-    date_cols = []
-    cat_cols = []
+    text_cols    = []
 
-    for col, vals in col_values.items():
-        sample = vals[0] if vals else None
-        if sample is None:
-            continue
-        sample_str = str(sample)
-        has_dash = "-" in sample_str
-        has_comma = "," in sample_str
-        looks_date = _is_date_like(sample_str)
-        first_num = _first_numeric([v for v in vals if v is not None])
-        if first_num is not None:
+    for col in cols:
+        if _col_is_numeric(col, rows):
             numeric_cols.append(col)
-        elif looks_date:
+        elif rows and _is_date_like(rows[0].get(col, "")):
             date_cols.append(col)
         else:
-            cat_cols.append(col)
+            text_cols.append(col)
 
-    # 1. Scatter: two numeric columns available
-    if len(numeric_cols) >= 2:
-        x, y = numeric_cols[0], numeric_cols[1]
-        return {"type": "scatter", "x": x, "y": y}
+    # Rule 1 – line: first column is date-like + at least one numeric col
+    if date_cols and numeric_cols and cols[0] in date_cols:
+        return {"type": "line", "x": date_cols[0], "y": numeric_cols[0]}
 
-    # 2. Line: exactly one date column + one numeric column
-    if len(date_cols) == 1 and len(numeric_cols) >= 1:
-        x = date_cols[0]
-        y = numeric_cols[0]
-        return {"type": "line", "x": x, "y": y}
+    # Rule 2 – bar: one text col + one numeric col + <=30 rows
+    if len(text_cols) == 1 and len(numeric_cols) == 1 and n_rows <= 30:
+        return {"type": "bar", "x": text_cols[0], "y": numeric_cols[0]}
 
-    # 3. Bar: exactly one categorical column + one numeric column
-    if len(cat_cols) == 1 and len(numeric_cols) >= 1:
-        x = cat_cols[0]
-        y = numeric_cols[0]
-        return {"type": "bar", "x": x, "y": y}
-
-    # 4. Nothing appropriate
     return {"type": None}

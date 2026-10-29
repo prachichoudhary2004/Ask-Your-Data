@@ -1,6 +1,7 @@
 '''api.py - FastAPI application for Text-to-SQL service'''
 
 import logging
+import time
 from typing import Dict, List, Optional
 
 from fastapi import FastAPI
@@ -50,13 +51,17 @@ async def process_query(request: QueryRequest):
             show_sql=request.show_sql
         )
 
+        t0 = time.perf_counter()
         result = query(service_request)
+        latency = round(time.perf_counter() - t0, 3)
 
         return QueryResponse(
             success=True,
             sql=result["sql"],
             cols=result["cols"],
-            rows=result["rows"]
+            rows=result["rows"],
+            latency_seconds=latency,
+            attempts=result.get("attempts", 1),
         )
 
     except (ValueError, RuntimeError, ConnectionError, KeyError) as e:
