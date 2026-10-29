@@ -208,3 +208,9 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 /data
+
+eval/cache/
+eval_output.txt
+
+eval/cache/
+eval_output.txt
