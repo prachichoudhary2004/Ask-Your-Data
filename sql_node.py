@@ -121,7 +121,7 @@ def sql_generator_node(state: RAGState) -> RAGState:
     out = re.sub(r"```(?:sql)?\n?", "", out, flags=re.IGNORECASE).replace("```", "").strip()
 
     # 6. Extract the SELECT statement (case‑insensitive)
-    match = re.search(r"(select\\b.*)", out, flags=re.IGNORECASE | re.DOTALL)
+    match = re.search(r"(select\b.*)", out, flags=re.IGNORECASE | re.DOTALL)
     if match:
         out = match.group(1).strip()
     else:
