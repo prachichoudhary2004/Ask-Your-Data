@@ -5,19 +5,7 @@
 [![CI](https://github.com/prachichoudhary2004/Ask-Your-Data/actions/workflows/ci.yml/badge.svg)](https://github.com/prachichoudhary2004/Ask-Your-Data/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.13-blue)
 
-![Demo](docs/images/demo.png)
 
-The database is a fictional Brazilian company, XPTO Empresa. The schema is in Portuguese (`vendas`, `clientes`, `funcionarios`, ...), and questions can be in either language.
-
-**Example**
-
-> **Question:** How many sales were made in 2023?
-> **Generated SQL:** `SELECT COUNT(*) FROM vendas WHERE strftime('%Y', data_venda) = '2023'`
-> **Result:** 3
-
-**Contents:** [How it works](#how-it-works) | [Features](#features) | [Quick start](#quick-start) | [Safety](#safety-design) | [Evaluation](#evaluation) | [Tests and CI](#tests-and-ci) | [Limits](#known-limits) | [Roadmap](#roadmap) | [Structure](#project-structure)
-
----
 
 ## How it works
 
@@ -41,28 +29,9 @@ flowchart LR
 5. **Retry.** If validation or execution fails, the error and the schema go back to the LLM for a corrected query (up to 2 retries).
 6. **Show.** The UI displays the table, an automatic bar or line chart when the data fits, the SQL, and the timing.
 
-Details: [docs/FLOW.md](docs/FLOW.md) (call map and error paths) and [docs/DECISIONS.md](docs/DECISIONS.md) (every design decision and the bugs found along the way).
 
 ---
 
-## Features
-
-| Feature | Status |
-|---|---|
-| English and Portuguese questions to SQL | WORKING |
-| RAG retrieval (ChromaDB) with cross-encoder reranking | WORKING |
-| Full allowed-schema in every prompt, to prevent invented tables | WORKING |
-| SQL safety validation (SELECT only, approved tables) | WORKING |
-| Read-only database connection and automatic row limit | WORKING |
-| Retry loop with error and schema feedback | WORKING (checked by hand; no automated test; not triggered in the benchmark) |
-| Chat UI with history, automatic charts, SQL view, CSV download | WORKING |
-| FastAPI endpoint (`POST /query`) | WORKING |
-| 40-question evaluation harness and scoring script | WORKING |
-| 22 unit tests and GitHub Actions CI | WORKING |
-| Groq rate-limit handling | PARTIAL: the Groq client retries a few times by itself; the app adds nothing more |
-| CSV / Excel upload, PDF questions, Docker, live demo, follow-up questions, token-cost tracking | NOT BUILT |
-
----
 
 ## Quick start
 
@@ -156,20 +125,6 @@ uv run ruff check .
 ```
 
 GitHub Actions runs both on every push and pull request to `main`.
-
----
-
-## Known limits
-
-- The retry loop has no automated test, and no integration test covers the LLM pipeline.
-- The benchmark is small (40 questions, one fictional database), and its main score uses a rule chosen after the first results.
-- The validator does not check column names.
-- The app does not add its own handling for Groq rate limits.
-- Only tested on the XPTO database. Other schemas are untested.
-
-## Roadmap
-
-Planned, not built: Docker image, live demo, CSV / Excel upload, follow-up questions, token-cost tracking.
 
 ---
 
