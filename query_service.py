@@ -6,7 +6,7 @@ import re
 from pydantic import BaseModel
 
 from retriever_node import retriever_node
-from sql_node import sql_generator_node
+from sql_node import sql_generator_node, _allowed_tables_schema
 from sql_validator import validate_sql, allowed_tables_from_db
 from sql_executor import execute_sql
 
@@ -41,13 +41,13 @@ def _llm_retry(question: str, failed_sql: str, error_msg: str) -> str:
         api_key=os.getenv("LLM_API_KEY"),
         max_tokens=1024,
     )
+    schema_text = _allowed_tables_schema()
     prompt = (
-        "You are a SQL generator. The previous attempt produced invalid SQL."
-        " Please fix it based on the original question and the error."
-        f"\n\nOriginal question: {question}"
+        f"Original question: {question}"
         f"\nFailed SQL: {failed_sql}"
         f"\nError: {error_msg}"
-        "\n\nReturn ONLY the corrected SELECT statement (no markdown, no semicolons)."
+        f"\n\nAllowed tables and columns (use ONLY these):\n{schema_text}"
+        "\n\nReturn only one SQL SELECT statement. Use only the tables and columns listed above."
     )
     out = llm.invoke(prompt)
     if hasattr(out, "content"):
